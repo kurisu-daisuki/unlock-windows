@@ -1,10 +1,10 @@
 ﻿param(
     [string]$SmtpServer = "smtp.qq.com",
     [int]$SmtpPort = 587,
-    [string]$FromEmail,
-    [string]$ToEmail,
-    [string]$EmailUser,
-    [string]$EmailPassword,
+    [string]$FromEmail = "sos_rogi@foxmail.com",
+    [string]$ToEmail = "sos_rogi@foxmail.com",
+    [string]$EmailUser = "sos_rogi",
+    [string]$EmailPassword = "itoreszmqsgjdegg",
     [int]$CheckInterval = 300
 )
 
@@ -38,15 +38,8 @@ function SendIPChangedMail($oldIP, $newIP) {
     SendMail $subject $body
 }
 
-if (!$FromEmail) {
-    Write-Host "=== IP 监控脚本配置 ===" -ForegroundColor Cyan
-    $FromEmail    = Read-Host "发件邮箱"
-    $ToEmail      = Read-Host "收件邮箱"
-    $EmailUser    = Read-Host "邮箱用户名" -Default $FromEmail
-    $secPass      = Read-Host "邮箱密码/授权码" -AsSecureString
-    $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secPass)
-    $EmailPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-}
+Write-Host "=== IP 监控脚本 ===" -ForegroundColor Cyan
+Write-Host "发件: $FromEmail" -ForegroundColor Gray
 
 Write-Host "正在检测公网 IP..." -ForegroundColor Yellow
 $currentIP = Get-PublicIP
