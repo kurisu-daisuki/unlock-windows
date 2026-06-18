@@ -1,9 +1,9 @@
 ﻿param(
     [string]$SmtpServer = "smtp.qq.com",
-    [int]$SmtpPort = 465,
+    [int]$SmtpPort = 587,
     [string]$FromEmail = "sos_rogi@foxmail.com",
     [string]$ToEmail = "sos_rogi@foxmail.com",
-    [string]$EmailUser = "sos_rogi",
+    [string]$EmailUser = "sos_rogi@foxmail.com",
     [string]$EmailPassword = "itoreszmqsgjdegg",
     [int]$CheckInterval = 300
 )
@@ -31,7 +31,7 @@ function SendMail($subject, $body) {
         $smtp = New-Object Net.Mail.SmtpClient($SmtpServer, $SmtpPort)
         $smtp.EnableSsl = $true
         $smtp.Credentials = $cred
-        $smtp.Timeout = 10000
+        $smtp.Timeout = 30000
         $smtp.Send($FromEmail, $ToEmail, $subject, $body)
         Write-Host "Mail sent" -ForegroundColor Green
     } finally {
