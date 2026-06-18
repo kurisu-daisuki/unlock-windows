@@ -27,9 +27,16 @@ function Get-PublicIP {
 function SendMail($subject, $body) {
     $secPass = ConvertTo-SecureString $EmailPassword -AsPlainText -Force
     $cred = New-Object System.Management.Automation.PSCredential($EmailUser, $secPass)
-    Send-MailMessage -SmtpServer $SmtpServer -Port $SmtpPort -UseSsl `
-        -Credential $cred -From $FromEmail -To $ToEmail `
-        -Subject $subject -Body $body -Encoding utf8
+    try {
+        $smtp = New-Object Net.Mail.SmtpClient($SmtpServer, $SmtpPort)
+        $smtp.EnableSsl = $true
+        $smtp.Credentials = $cred
+        $smtp.Timeout = 10000
+        $smtp.Send($FromEmail, $ToEmail, $subject, $body)
+        Write-Host "Mail sent" -ForegroundColor Green
+    } finally {
+        $smtp.Dispose()
+    }
 }
 
 function SendIPChangedMail($oldIP, $newIP) {
