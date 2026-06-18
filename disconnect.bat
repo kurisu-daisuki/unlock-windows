@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 title 断开RDP - 保持解锁
 setlocal enabledelayedexpansion
 
