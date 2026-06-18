@@ -1,11 +1,11 @@
 ﻿param(
-    [string]$SmtpServer = "smtp.qq.com",
-    [int]$SmtpPort = 587,
-    [string]$FromEmail = "sos_rogi@foxmail.com",
-    [string]$ToEmail = "sos_rogi@foxmail.com",
-    [string]$EmailUser = "sos_rogi@foxmail.com",
-    [string]$EmailPassword = "itoreszmqsgjdegg",
-    [int]$CheckInterval = 300
+    [string]$SmtpServer = "smtp.qq.com",       # SMTP 服务器
+    [int]$SmtpPort = 587,                       # SMTP 端口（QQ: 465/587）
+    [string]$FromEmail = "你的邮箱@qq.com",      # 发件邮箱
+    [string]$ToEmail = "你的邮箱@qq.com",        # 收件邮箱
+    [string]$EmailUser = "你的邮箱@qq.com",      # 邮箱用户名（QQ需填完整邮箱）
+    [string]$EmailPassword = "你的授权码",       # 邮箱密码/授权码
+    [int]$CheckInterval = 300                   # 检测间隔（秒）
 )
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
